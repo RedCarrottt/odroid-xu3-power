@@ -16,6 +16,11 @@ echo 1 > /sys/bus/i2c/drivers/INA231/0-0044/enable
 # settle two seconds to the sensors get fully enabled and have the first reading
 sleep 2
 
+# CPU Governor
+echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+CPU_GOVERNOR=`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor`
+echo "governor: $CPU_GOVERNOR"
+
 # Main infinite loop
 while true; do
 
@@ -26,11 +31,6 @@ CPU0_FREQ=$((`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq`/1000))"
 CPU1_FREQ=$((`cat /sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq`/1000))" Mhz"
 CPU2_FREQ=$((`cat /sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq`/1000))" Mhz"
 CPU3_FREQ=$((`cat /sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq`/1000))" Mhz"
-
-# CPU Governor
-echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-CPU_GOVERNOR=`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor`
-echo "governor: $CPU_GOVERNOR"
 
 # Now lets get CPU Power Comsumption
 # Letter Values are:
