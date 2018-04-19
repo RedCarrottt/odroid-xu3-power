@@ -2,6 +2,11 @@
 # Original Code: https://forum.odroid.com/viewtopic.php?f=61&t=2060
 # I customized the code for Odroid-XU3 with INA231 sensors
 
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
+
 # enable the sensors
 echo 1 > /sys/bus/i2c/drivers/INA231/0-0045/enable
 echo 1 > /sys/bus/i2c/drivers/INA231/0-0040/enable
