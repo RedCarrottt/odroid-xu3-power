@@ -13,9 +13,6 @@ echo 1 > /sys/bus/i2c/drivers/INA231/0-0040/enable
 echo 1 > /sys/bus/i2c/drivers/INA231/0-0041/enable
 echo 1 > /sys/bus/i2c/drivers/INA231/0-0044/enable
 
-# settle two seconds to the sensors get fully enabled and have the first reading
-sleep 2
-
 # CPU Governor
 echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 CPU_GOVERNOR=`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor`
@@ -66,5 +63,5 @@ GPU_WW=`cat /sys/bus/i2c/drivers/INA231/0-0044/sensor_W`
 
 echo "$A15_WW $A7_WW $MEM_WW $GPU_WW"
 
-sleep 3
+sleep 1
 done
