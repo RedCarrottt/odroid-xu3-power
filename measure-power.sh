@@ -14,9 +14,12 @@ echo 1 > /sys/bus/i2c/drivers/INA231/0-0041/enable
 echo 1 > /sys/bus/i2c/drivers/INA231/0-0044/enable
 
 # CPU Governor
-echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-CPU_GOVERNOR=`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor`
-echo "governor: $CPU_GOVERNOR"
+for i in {0..7}
+do
+  echo "ondemand" > /sys/devices/system/cpu/cpu${i}/cpufreq/scaling_governor
+  CPU_GOVERNOR=`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor`
+  echo "CPU${i} governor: $CPU_GOVERNOR"
+done
 
 # Main infinite loop
 while true; do
@@ -28,6 +31,10 @@ CPU0_FREQ=$((`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq`/1000))"
 CPU1_FREQ=$((`cat /sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq`/1000))" Mhz"
 CPU2_FREQ=$((`cat /sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq`/1000))" Mhz"
 CPU3_FREQ=$((`cat /sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq`/1000))" Mhz"
+CPU4_FREQ=$((`cat /sys/devices/system/cpu/cpu4/cpufreq/scaling_cur_freq`/1000))" Mhz"
+CPU5_FREQ=$((`cat /sys/devices/system/cpu/cpu5/cpufreq/scaling_cur_freq`/1000))" Mhz"
+CPU6_FREQ=$((`cat /sys/devices/system/cpu/cpu6/cpufreq/scaling_cur_freq`/1000))" Mhz"
+CPU7_FREQ=$((`cat /sys/devices/system/cpu/cpu7/cpufreq/scaling_cur_freq`/1000))" Mhz"
 
 # Now lets get CPU Power Comsumption
 # Letter Values are:
@@ -63,5 +70,5 @@ GPU_WW=`cat /sys/bus/i2c/drivers/INA231/0-0044/sensor_W`
 
 echo "$A15_WW $A7_WW $MEM_WW $GPU_WW"
 
-sleep 1
+sleep 0.5
 done
