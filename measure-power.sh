@@ -23,7 +23,7 @@ CPU2_FREQ=$((`cat /sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq`/1000))"
 CPU3_FREQ=$((`cat /sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq`/1000))" Mhz"
 
 # CPU Governor
-echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+sudo echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 CPU_GOVERNOR=`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor`
 echo "governor: $CPU_GOVERNOR"
 
